@@ -1,0 +1,29 @@
+Disaster Recovery Playbook — DB Restore (One-Page)
+
+1. Identify failure type:
+  - Logical corruption -> partial restore or apply binlogs.
+  - Total server failure -> full restore.
+
+2. Get the latest valid backup:
+  - Check S3: aws s3 ls s3://your-backup-bucket/.../ | sort
+  - Choose most recent FULL backup before incident + binlogs since.
+
+3. Prepare environment:
+  - Quiesce application (read-only or maintenance page)
+  - Provision target DB server or use existing restored instance
+
+4. Restore steps:
+  - Decrypt backup: gpg --output dump.sql.gz --decrypt backup.sql.gz.gpg
+  - Uncompress: gunzip dump.sql.gz
+  - For MySQL: mysql -h HOST -u USER -p < dump.sql
+  - For Postgres: psql -h HOST -U USER -d postgres -f dump.sql
+  - If incremental: apply binlog / WAL files accordingly.
+
+5. Verify:
+  - Run row-count comparisons
+  - Run app smoke tests for key flows
+  - Confirm FK constraints intact and run basic queries
+
+6. Cutover:
+  - Update connection strings / DNS
+  - Monitor logs and metrics for 1-2 hours closely

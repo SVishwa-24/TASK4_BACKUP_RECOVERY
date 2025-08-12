@@ -1,0 +1,10 @@
+🛡️ Just finished a robust DB Backup & Recovery setup — automated, encrypted, and battle-tested.
+
+What I built:
+• Full & incremental backups (MySQL / PostgreSQL)
+• Encrypted archives with GPG
+• Offsite sync to S3 (or any remote)
+• Automated verification (row counts + checksums)
+• Cron + rotation policy + retention + restore playbook
+
+If you want the scripts (backup + restore + validation + cron config), DM me and I’ll share the repo. #DataEngineering #DBA #Backup #DisasterRecovery

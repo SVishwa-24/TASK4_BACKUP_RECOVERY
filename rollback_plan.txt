@@ -1,0 +1,11 @@
+Rollback Plan - Backup & Recovery
+
+1) Pre-backup: take a full logical backup and store it securely.
+   mysqldump -h MYSQL_HOST -u MYSQL_USER -pMYSQL_PASS --all-databases > mysql_pre_backup.sql
+
+2) If restore is needed:
+   - Decrypt and uncompress the chosen backup
+   - Restore using mysql or psql commands depending on DB
+   - Verify counts and run application smoke tests
+
+3) Keep backups for at least 30 days before purging.
